@@ -339,7 +339,7 @@ public class TelaPrincipal extends JFrame {
                 }
 
                 // Se passou da verificação, registra o resto com sucesso
-                double valorPorDia = (livroSelecionado instanceof LivroLiteratura) ? 5.0 : 8.0; 
+                double valorPorDia = (livroSelecionado instanceof LivroLiteratura) ? 5.0 : 7.0; 
                 double valorTotal = dias * valorPorDia;
 
                 gerenciador.registrarNovaLocacao(novaLocacao);
@@ -393,11 +393,27 @@ public class TelaPrincipal extends JFrame {
     }
 
     private void atualizarListaDeLocacoes() {
-        StringBuilder sb = new StringBuilder("=== HISTÓRICO ATIVO DE LOCAÇÕES ===\n\n");
-        for (Locacao loc : gerenciador.listarLocacoes()) {
-            sb.append(String.format("ID Transação: %02d | Cliente Associado: %-25s\n", 
-                    loc.getId(), loc.getCliente().getNome()));
-        }
-        txtListaLocacoes.setText(sb.toString());
+
+    // Cria um StringBuilder para montar o texto do histórico de forma eficiente,
+    // evitando várias concatenações de String.
+    StringBuilder sb = new StringBuilder("=== HISTÓRICO ATIVO DE LOCAÇÕES ===\n\n");
+
+    // O histórico não é armazenado como texto.
+    // O sistema armazena cada empréstimo como um objeto Locacao dentro
+    // da lista de locações do GerenciadorBiblioteca.
+    // Sempre que este método é chamado, essa lista é percorrida para
+    // reconstruir o histórico exibido na interface.
+    for (Locacao loc : gerenciador.listarLocacoes()) {
+
+        // Cada objeto Locacao representa uma transação realizada.
+        // Aqui são exibidos o ID da transação e o cliente associado.
+        sb.append(String.format(
+                "ID Transação: %02d | Cliente Associado: %-25s\n",
+                loc.getId(),
+                loc.getCliente().getNome()));
     }
+
+    // Atualiza a área de texto da interface com o histórico reconstruído.
+    txtListaLocacoes.setText(sb.toString());
+}
 }

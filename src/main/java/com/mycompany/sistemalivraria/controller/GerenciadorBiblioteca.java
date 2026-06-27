@@ -43,7 +43,7 @@ public class GerenciadorBiblioteca {
     }
 
     // ==========================================
-    // CRUD DE CLIENTES (RF02)
+    // (RF02)
     // ==========================================
     public void cadastrarCliente(Cliente cliente) {
         listaClientes.add(cliente);
@@ -70,7 +70,7 @@ public class GerenciadorBiblioteca {
     }
 
     // ==========================================
-    // CRUD DE LIVROS (RF03 / RF03.1)
+    //  (RF03)
     // ==========================================
     public void cadastrarLivro(Livro livro) {
         listaLivros.add(livro);
